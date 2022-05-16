@@ -374,7 +374,8 @@
 <script>
 import repository, { Color } from "../service/repo/repository";
 
-import userrepo from "../service/impl/userrepo";
+
+import permissionrepo from "../service/impl/permissionrepo"
 export default {
   name: "Permission",
   data() {
@@ -456,8 +457,7 @@ export default {
 
     async getAllGroup() {
       let self = this;
-      await repository
-        .get("/group")
+      permissionrepo.getAllGroup()
         .then(function (response) {
           self.groups = response.data.data;
         })
@@ -476,8 +476,7 @@ export default {
     },
     showUsersModal() {
       let self = this;
-      repository
-        .get(`userpermission/getUserNotInGroup/${this.group.groupid}`)
+      permissionrepo.getUserNotInGroup(this.group.groupid)
         .then((res) => {
           self.usernotingroup = res.data.data;
         })
@@ -508,9 +507,10 @@ export default {
       this.group = item;
 
       Promise.all([
-        repository.get(`/userpermission/getUserInGroup/${item.groupid}`),
-        repository.get(`/permission/getPerMissionByGroupId/${item.groupid}`),
-        repository.get(`/permission/getPerMissionNotInGroup/${item.groupid}`),
+        permissionrepo.getUserInGroup(item.groupid),
+        permissionrepo.getAllPermissionByGroupId(item.groupid),
+        permissionrepo.getAllPermissionNotInByGroupId(item.groupid)
+        
       ]).then((res) => {
         self.useringroup = res[0].data.data;
         self.permisioningroup = res[1].data.data;
@@ -537,8 +537,7 @@ export default {
         active: self.addform.active,
         note: self.addform.note,
       };
-      repository
-        .post(`group`, data)
+      permissionrepo.addGroup(data)
         .then((res) => {
           self.hideAddGroupModal();
         })
@@ -551,16 +550,11 @@ export default {
         groupid: groupid,
         perid: perid,
       };
-      repository
-        .post(`grouppermission`, data)
+      permissionrepo.addPermissionToGroup(data)
         .then((res) => {
           Promise.all([
-            repository.get(
-              `/permission/getPerMissionByGroupId/${self.group.groupid}`
-            ),
-            repository.get(
-              `/permission/getPerMissionNotInGroup/${self.group.groupid}`
-            ),
+            permissionrepo.getAllPermissionByGroupId(self.group.groupid),
+            permissionrepo.getAllPermissionNotInByGroupId(self.group.groupid)
           ]).then((res) => {
             self.permisioningroup = res[0].data.data;
             self.permissionnotingroup = res[1].data.data;
@@ -574,16 +568,11 @@ export default {
         groupid: groupid,
         perid: perid,
       };
-      repository
-        .post(`/grouppermission/removeGroupPermission`, data)
+      permissionrepo.removePermission(data)
         .then((res) => {
           Promise.all([
-            repository.get(
-              `/permission/getPerMissionByGroupId/${self.group.groupid}`
-            ),
-            repository.get(
-              `/permission/getPerMissionNotInGroup/${self.group.groupid}`
-            ),
+            permissionrepo.getAllPermissionByGroupId(self.group.groupid),
+            permissionrepo.getAllPermissionNotInByGroupId(self.group.groupid)
           ]).then((res) => {
             self.permisioningroup = res[0].data.data;
             self.permissionnotingroup = res[1].data.data;
@@ -597,8 +586,8 @@ export default {
         usid: id,
         groupid: groupid,
       };
-      repository.post(`userpermission/remove`, data).then((res) => {
-        userrepo.getAllUserInGroup(self.group.groupid).then((res) => {
+      permissionrepo.removeUser(data).then((res) => {
+        permissionrepo.getAllUserInGroup(self.group.groupid).then((res) => {
           self.useringroup = res.data.data;
         });
       });
@@ -610,8 +599,8 @@ export default {
         usid: id,
         groupid: groupid,
       };
-      repository.post(`userpermission/insert`, data).then((res) => {
-        userrepo.getAllUserInGroup(self.group.groupid).then((res) => {
+      permissionrepo.insertUser(data).then((res) => {
+        permissionrepo.getAllUserInGroup(self.group.groupid).then((res) => {
           self.useringroup = res.data.data;
           self.spinnerloading = false;
           self.hideUserModal();

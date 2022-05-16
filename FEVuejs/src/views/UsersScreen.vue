@@ -321,7 +321,7 @@ import AddUserForm from "../components/form/AddUserForm.vue";
 import Navigation from "../components/navigation/Navigation.vue";
 import repository from "../service/repo/repository";
 import JjUploader from "jj-uploader";
-
+import userrepo from "../service/impl/userrepo.js"
 export default {
   name: "UsersScreen",
 
@@ -502,8 +502,7 @@ export default {
         Address: this.addform.address,
       };
       data.Phone = data.Phone.toString();
-      await repository
-        .post(`https://localhost:44334/user/list-user/create`, data)
+      userrepo.createUser(data)
         .then(function (response) {
           if (response.data.success == true) {
             self.hideModal();
@@ -536,8 +535,7 @@ export default {
     async getAllUser() {
       //get all user in database
       let self = this;
-      await repository
-        .get("/user/list-user")
+      await userrepo.getAllUser()
         .then(function (response) {
           self.items = response.data.data;
           console.log("jdhjf");
@@ -551,8 +549,7 @@ export default {
       self.showLoading();
 
       const data = JSON.stringify({ id: self.infoModal.content.id });
-      await repository
-        .delete(`/user/list-user/delete`, { data: data })
+      userrepo.deleteUser(data)
         .then(function (response) {
           self.getAllUser();
           self.hideModalDelete();
@@ -588,8 +585,7 @@ export default {
       data.address = this.updateform.address;
       data.avatar = this.updateform.avatar;
 
-      await repository
-        .put(`/user/list-user/update`, data)
+      await userrepo.updateUser(data)
         .then(function (response) {
           if (response.status == 200 || response.status == 204) {
             self.getAllUser();
