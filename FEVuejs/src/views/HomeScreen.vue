@@ -25,22 +25,22 @@
           </b-col>
           <b-col md="8" style="padding:20px 20px">
             <b-row>
-              <b-col lg="6" class="col">
+              <b-col cols="12" sm="6" class="col">
                 <span class="label">Email</span>
               </b-col>
-              <b-col lg="6" class="col"> 
+              <b-col cols="12" sm="6" class="col"> 
                 <span class="email">{{ user.email }}</span>
               </b-col>
-              <b-col lg="6" class="col">
+              <b-col cols="12" sm="6" class="col">
                 <span class="label">Phone</span>
               </b-col>
-              <b-col lg="6" class="col">
+              <b-col cols="12" sm="6" class="col">
                 <span class="phone">{{ user.phone }}</span>
               </b-col>
-              <b-col lg="6" class="col">
+              <b-col cols="12" sm="6" class="col">
                 <span class="label">Address:</span>
               </b-col>
-              <b-col lg="6" class="col">
+              <b-col cols="12" sm="6" class="col">
                 <span class="address">{{ user.address}}</span>
               </b-col>
               

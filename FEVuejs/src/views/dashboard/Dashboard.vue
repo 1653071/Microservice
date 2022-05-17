@@ -1,8 +1,8 @@
 <template>
  
     <b-row class="row" no-gutters>
-      <b-col class="col col-sidebar" md="12" sm="12" lg="2"><Sidebar /> </b-col>
-      <b-col class="col col-content"  md="12" sm="12" lg="10"><Navigation /><router-view class="view"/></b-col>
+      <b-col class="col col-sidebar" cols="12" md="12" sm="12" lg="2"><Sidebar /> </b-col>
+      <b-col class="col col-content" cols="12" md="12" sm="12" lg="10"><Navigation /><router-view class="view"/></b-col>
     </b-row>
     
  
@@ -37,9 +37,9 @@ export default {
   margin: 0;
   height: 100%;
 }
-@media screen and (max-width:1000px) {
+@media screen and (max-width:992px) {
  .col-sidebar{
-   height: 30%;
+   height: 20%;
  }
  .col-content{
    overflow: none;

@@ -42,7 +42,11 @@
                   class="user"
                   v-for="item in itemsForList"
                   :key="item.user.id"
-                  lg="4"
+                  lg="6"
+                  md = "6"
+                  cols="12"
+                  sm="12"
+                  xl="6"
                 >
                   <b-card
                     no-body
@@ -51,7 +55,8 @@
                   >
                     <b-row no-gutters>
                       <b-col
-                        lg="5"
+                        sm="5"
+                        cols="5"
                         style="
                           display: flex;
                           justify-content: center;
@@ -68,8 +73,8 @@
                             transform: translate(-50%, -50%);
                           "
                         ></b-avatar>
-                      </b-col>
-                      <b-col lg="5">
+                      </b-col> 
+                      <b-col sm="5" cols="5">
                         <b-card-body>
                           <div class="user-name">
                             {{
@@ -82,7 +87,7 @@
                           </b-card-text>
                         </b-card-body>
                       </b-col>
-                      <b-col class="col-delete" lg="2">
+                      <b-col class="col-delete" sm="2">
                         <div
                           class="remove-button"
                           @click="
@@ -202,7 +207,8 @@
       <div class="d-block">
         <b-row>
           <b-col
-            cols="6"
+            lg="6"
+            sm="12"
             class="col-group"
             v-for="item in groups"
             :key="item.id"
@@ -381,7 +387,7 @@ export default {
   data() {
     return {
       mes: "aaaa1111",
-      perPage: 6,
+      perPage: 8,
       currentPage: 1,
       groupname: "",
       note: "",
@@ -707,7 +713,12 @@ export default {
 }
 .row-user {
   height: 600px;
+  overflow: scroll;
   width: 100%;
+
+}
+::-webkit-scrollbar {
+    display: none;
 }
 .permission-card-box {
   padding: 10px;

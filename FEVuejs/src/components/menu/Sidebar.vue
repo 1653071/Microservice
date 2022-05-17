@@ -93,7 +93,7 @@ export default {
   margin-right: 15px;
   margin-left: 15px;
 }
-@media screen and (max-width: 992x) {
+@media screen and (max-width: 992px) {
   .sidebar .item-sidebar .item {
     display: inline-block;
     color: #d2d2d2;
@@ -102,7 +102,7 @@ export default {
   }.sidebar {
     display: inline-block;
     color: #d2d2d2;
-    padding: 15px;
+  
     text-decoration: none;
    
   }
